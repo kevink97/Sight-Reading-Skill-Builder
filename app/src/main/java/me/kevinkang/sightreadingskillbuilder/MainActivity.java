@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView totalText;
     private TextView completedText;
     private Chronometer chrono;
+    private List<Button> buttons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         // noteImage.setImageResource(--id--);
         initializeAllNotes();
 
+
         if (mNotes == null) {
             mNotes = new ArrayList<Note>();
         }
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void initializeAllNotes() {
+    private void initializeAllNotes() {
         mAllNotes = new ArrayList<Note>();
         Note a1 = new Note(Note.A, R.drawable.a1);
         Note a2 = new Note(Note.A, R.drawable.a2);
@@ -91,6 +93,30 @@ public class MainActivity extends AppCompatActivity {
         mAllNotes.add(g1);
         mAllNotes.add(g2);
         mAllNotes.add(g3);
+
+        Button buttA = (Button) findViewById(R.id.noteA);
+        Button buttB = (Button) findViewById(R.id.noteB);
+        Button buttC = (Button) findViewById(R.id.noteC);
+        Button buttD = (Button) findViewById(R.id.noteD);
+        Button buttE = (Button) findViewById(R.id.noteE);
+        Button buttF = (Button) findViewById(R.id.noteF);
+        Button buttG = (Button) findViewById(R.id.noteG);
+        buttA.setEnabled(false);
+        buttB.setEnabled(false);
+        buttC.setEnabled(false);
+        buttD.setEnabled(false);
+        buttE.setEnabled(false);
+        buttF.setEnabled(false);
+        buttG.setEnabled(false);
+
+        buttons = new ArrayList<Button>();
+        buttons.add(buttA);
+        buttons.add(buttB);
+        buttons.add(buttC);
+        buttons.add(buttD);
+        buttons.add(buttE);
+        buttons.add(buttF);
+        buttons.add(buttG);
     }
 
     public void checkIfCorrect(View view) {
@@ -110,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "That was incorrect. We will come back" +
                     " to this. Moving on!",
                     Toast.LENGTH_LONG).show();
+            mNotes.add(currentNote);
+            updateNote();
         }
     }
 
@@ -118,20 +146,23 @@ public class MainActivity extends AppCompatActivity {
         mNotes.addAll(mAllNotes);
         updateScore();
         updateNote();
+        for (int i = 0; i < buttons.size(); i++) {
+            buttons.get(i).setEnabled(true);
+        }
         Toast.makeText(getApplicationContext(), "Started new game",
                 Toast.LENGTH_LONG).show();
         chrono.setBase(SystemClock.elapsedRealtime());
         chrono.start();
     }
 
-    public int updateScore() {
+    private int updateScore() {
         totalText.setText("" + mAllNotes.size());
         int difference = mAllNotes.size() - mNotes.size();
         completedText.setText("" + difference);
         return difference;
     }
 
-    public void updateNote() {
+    private void updateNote() {
         int i = random.nextInt(mNotes.size());
         currentNote = mNotes.remove(i);
         noteImage.setImageResource(currentNote.getResId());
