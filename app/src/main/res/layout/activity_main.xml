@@ -19,11 +19,11 @@
 
     <TextView
         android:id="@+id/outOfText"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/completed"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
         android:paddingTop="10dp"
         android:text="out of"/>
 
@@ -37,21 +37,21 @@
 
     <Chronometer
         android:id="@+id/chrono"
-        android:format="%s"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
         android:layout_alignParentRight="true"
-        android:textSize="14sp"
-        android:textColor="#2962ff"/>
+        android:format="%s"
+        android:paddingTop="10dp"
+        android:textColor="#2962ff"
+        android:textSize="14sp"/>
 
     <TextView
         android:id="@+id/elapseText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time Elapsed:  "
+        android:layout_toLeftOf="@id/chrono"
         android:paddingTop="10dp"
-        android:layout_toLeftOf="@id/chrono"/>
+        android:text="Time Elapsed:  "/>
 
     <ImageView
         android:id="@+id/noteImage"
@@ -150,4 +150,25 @@
         android:onClick="intiateGame"
         android:text="New Game"
         android:textAllCaps="false"/>
+
+
+    <TextView
+        android:id="@+id/score_value_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/chrono"
+        android:text="@string/high_score_default"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#d500f9"/>
+
+    <TextView
+        android:id="@+id/high_score_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/elapseText"
+        android:layout_toLeftOf="@id/score_value_text"
+        android:text="High Score: "
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
 </RelativeLayout>

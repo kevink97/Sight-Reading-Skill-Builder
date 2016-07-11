@@ -1,7 +1,11 @@
 package me.kevinkang.sightreadingskillbuilder;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -45,7 +49,23 @@ public class MainActivity extends AppCompatActivity {
         }
         random = new Random();
 
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        updateUIHS();
+    }
+
+    private void updateUIHS() {
+        SharedPreferences sp = this.getPreferences(Context.MODE_PRIVATE);
+        TextView textView = (TextView) findViewById(R.id.score_value_text);
+        int defaultValue = Integer.parseInt(getResources()
+                .getString(R.string.high_score_default));
+        int currentHS = sp.getInt(getString(R.string.high_score_key), defaultValue);
+        int minutes = currentHS / 60;
+        int seconds = currentHS % 60;
+        textView.setText("" + minutes + ":" + seconds);
     }
 
     private void initializeAllNotes() {
@@ -124,9 +144,8 @@ public class MainActivity extends AppCompatActivity {
         if (button.getText().toString().equals(currentNote.getNote())) {
             if (updateScore() >= mAllNotes.size()) {
                 chrono.stop();
-                Toast.makeText(getApplicationContext(), "Yay! You completed this exercise in " +
-                        chrono.getText().toString() + "! Try to" +
-                        " be even faster next time!", Toast.LENGTH_LONG).show();
+                String seconds = convertChronoToSeconds(chrono.getText().toString());
+                updateHighScore(seconds);
             } else {
                 updateNote();
                 Toast.makeText(getApplicationContext(), "Yay! You got it correct! Moving on!",
@@ -139,6 +158,66 @@ public class MainActivity extends AppCompatActivity {
             mNotes.add(currentNote);
             updateNote();
         }
+    }
+
+    private String convertChronoToSeconds(String chrono) {
+        String[] time = chrono.split(":");
+        int seconds = 0;
+        if (time.length == 2) {
+            seconds += Integer.parseInt(time[1]);
+            seconds += Integer.parseInt(time[0]) * 60;
+        } else if (time.length == 1) {
+            seconds += Integer.parseInt(time[0]);
+        }
+        return "" + seconds;
+    }
+
+    private void updateHighScore(String seconds) {
+        SharedPreferences sp = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        int newHS = Integer.parseInt(seconds);
+        int defaultValue = Integer.parseInt(getResources()
+                .getString(R.string.high_score_default));
+
+        if (sp.contains(getString(R.string.high_score_key))) {
+            int currentHS = sp.getInt(getString(R.string.high_score_key), defaultValue);
+            if (currentHS <= newHS) {
+                builder.setTitle("Better luck next time!");
+                builder.setMessage("You completed it in " + newHS + " seconds. " +
+                        "You did not beat your previous record (" +
+                        + currentHS + " seconds). " +
+                        "Keep trying to improve your time!");
+            } else {
+                builder.setTitle("Congratulation!");
+                builder.setMessage("You completed it in " + newHS + " seconds. " +
+                        "You beat your previous score (" +
+                        + currentHS + " seconds). " +
+                        "We will update your new high score for you! " +
+                        "Keep trying to improve your time!");
+                editor.putInt(getString(R.string.high_score_key), newHS);
+                editor.commit();
+                updateUIHS();
+            }
+        } else {
+            builder.setTitle("Congratulation!");
+            builder.setMessage("You completed it in " + newHS + " seconds. " +
+                    "We will update your new high score for you! " +
+                    "Keep trying to improve your time!");
+            editor.putInt(getString(R.string.high_score_key), newHS);
+            editor.commit();
+            updateUIHS();
+        }
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
     public void intiateGame(View view) {
