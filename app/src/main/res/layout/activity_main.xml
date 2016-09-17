@@ -53,104 +53,6 @@
         android:paddingTop="10dp"
         android:text="Time Elapsed:  "/>
 
-    <ImageView
-        android:id="@+id/noteImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/outOfText"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="0dp"
-        android:padding="0dp"
-        android:src="@drawable/placeholder"
-        />
-
-    <Button
-        android:id="@+id/noteB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/noteImage"
-        android:layout_centerHorizontal="true"
-        android:onClick="checkIfCorrect"
-        android:text="B"
-        android:textAllCaps="false"/>
-
-    <Button
-        android:id="@+id/noteA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/noteImage"
-        android:layout_centerHorizontal="true"
-        android:layout_toLeftOf="@id/noteB"
-        android:onClick="checkIfCorrect"
-        android:text="A"
-        android:textAllCaps="false"/>
-
-    <Button
-        android:id="@+id/noteC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/noteImage"
-        android:layout_centerHorizontal="true"
-        android:layout_toRightOf="@id/noteB"
-        android:onClick="checkIfCorrect"
-        android:text="C"
-        android:textAllCaps="false"/>
-
-    <Button
-        android:id="@+id/noteE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/noteB"
-        android:layout_centerHorizontal="true"
-        android:onClick="checkIfCorrect"
-        android:text="E"
-        android:textAllCaps="false"/>
-
-    <Button
-        android:id="@+id/noteD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/noteB"
-        android:layout_centerHorizontal="true"
-        android:layout_toLeftOf="@id/noteE"
-        android:onClick="checkIfCorrect"
-        android:text="D"
-        android:textAllCaps="false"/>
-
-    <Button
-        android:id="@+id/noteF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/noteB"
-        android:layout_centerHorizontal="true"
-        android:layout_toRightOf="@id/noteE"
-        android:onClick="checkIfCorrect"
-        android:text="F"
-        android:textAllCaps="false"/>
-
-    <Button
-        android:id="@+id/noteG"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/noteE"
-        android:layout_centerHorizontal="true"
-        android:onClick="checkIfCorrect"
-        android:text="G"
-        android:textAllCaps="false"/>
-
-    <Button
-        android:id="@+id/start"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/noteD"
-        android:layout_alignRight="@id/noteF"
-        android:layout_below="@id/noteG"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:onClick="intiateGame"
-        android:text="New Game"
-        android:textAllCaps="false"/>
-
 
     <TextView
         android:id="@+id/score_value_text"
@@ -170,5 +72,130 @@
         android:layout_toLeftOf="@id/score_value_text"
         android:text="High Score: "
         android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <TextView
+        android:id="@+id/compliment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/completed"
+        android:layout_alignParentLeft="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/high_score_text"
+        android:weightSum="8.5">
+
+        <ImageView
+            android:id="@+id/noteImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="0dp"
+            android:layout_weight="3"
+            android:src="@drawable/placeholder"
+            android:layout_gravity="center_vertical"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/noteA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkIfCorrect"
+                android:text="A"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/noteB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkIfCorrect"
+                android:text="B"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/noteC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkIfCorrect"
+                android:text="C"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/noteD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkIfCorrect"
+                android:text="D"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/noteE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkIfCorrect"
+                android:text="E"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/noteF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkIfCorrect"
+                android:text="F"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+            <Button
+                android:id="@+id/noteG"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkIfCorrect"
+                android:text="G"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:gravity="center_horizontal">
+            <Button
+                android:id="@+id/start"
+                android:layout_weight="0.7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="intiateGame"
+                android:text="New Game"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>
