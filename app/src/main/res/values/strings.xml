@@ -1,6 +1,19 @@
 <resources>
-    <string name="app_name">Sight Reading Skill Builder</string>
+    <string name="app_name">Music Challenge</string>
 
     <string name="high_score_default">0</string>
     <string name="high_score_key">score</string>
+    <string name="title_activity_instruction">InstructionActivity</string>
+    <string name="instruction">
+        It is very simple to play this game.\n\nAfter you press \"New Game\", the game will immediately start.\n\nOn the top right of the screen, you will see that there is a stopwatch.\nThe objective of this game is to finish naming these notes as fast as possible.\nThe faster the better!!\n\nTo name the notes on the page, you simply have to click on thebutton that has the corresponding note name.\nIf you miss a note, the game will give you an another note. The one you missed will come back later.\n\nOnce you have finished the set of note, the game will record your fastest time.\n\nMake sure to keep practicing!\n\nSoon you will be a master at naming notes!\n\nGood luck!
+    </string>
+    <string name="about">
+        Hello and thank you for using my app!\nI
+        am a computer science student at the University of Washington and have been a clarinet
+        teacher for the last few years.\n\nOne
+        of the main reason I built this app is that learning to read notes is actually not
+        that fun. This is a simple app that gamifies the note learning
+        process. I really hope you enjoy using it!
+    </string>
+    <string name="title_activity_about">AboutActivity</string>
 </resources>

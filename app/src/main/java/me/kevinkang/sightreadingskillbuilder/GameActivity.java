@@ -3,22 +3,23 @@ package me.kevinkang.sightreadingskillbuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
     private List<Note> mNotes;
     private List<Note> mAllNotes;
     private ImageView noteImage;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game);
 
         noteImage = (ImageView) findViewById(R.id.noteImage);
         totalText = (TextView) findViewById(R.id.totalText);
@@ -48,13 +49,12 @@ public class MainActivity extends AppCompatActivity {
             mNotes = new ArrayList<Note>();
         }
         random = new Random();
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         updateUIHS();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private void updateUIHS() {
@@ -141,20 +141,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkIfCorrect(View view) {
         Button button = (Button) view;
+        TextView textView = (TextView) findViewById(R.id.compliment);
         if (button.getText().toString().equals(currentNote.getNote())) {
+            textView.setTextColor(Color.parseColor("#FF00E676"));
+            textView.setText("Good Job!");
             if (updateScore() >= mAllNotes.size()) {
                 chrono.stop();
                 String seconds = convertChronoToSeconds(chrono.getText().toString());
                 updateHighScore(seconds);
             } else {
                 updateNote();
-                Toast.makeText(getApplicationContext(), "Yay! You got it correct! Moving on!",
-                        Toast.LENGTH_LONG).show();
             }
         } else {
-            Toast.makeText(getApplicationContext(), "That was incorrect. We will come back" +
-                    " to this. Moving on!",
-                    Toast.LENGTH_LONG).show();
+            textView.setTextColor(Color.parseColor("#FFFF3D00"));
+            textView.setText("Incorrect");
             mNotes.add(currentNote);
             updateNote();
         }
@@ -228,8 +228,9 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setEnabled(true);
         }
-        Toast.makeText(getApplicationContext(), "Started new game",
-                Toast.LENGTH_LONG).show();
+        TextView textView = (TextView) findViewById(R.id.compliment);
+        textView.setTextColor(Color.parseColor("#FF1DE9B6"));
+        textView.setText("New Game!");
         chrono.setBase(SystemClock.elapsedRealtime());
         chrono.start();
     }
